@@ -7,9 +7,10 @@ import hashlib
 import sys
 
 
-def generate_checksum(file_path):
+def generate_checksum(pfile_path):
+    """ parameter pfile_path used for input to MD5 generator """
     md5 = hashlib.md5()
-    with open(file_path, 'rb') as file:  # with handles closing file
+    with open(pfile_path, 'rb') as file:  # with handles closing file
         for byte_block in iter(lambda: file.read(4096), b""):
         # read in by blocks of 4096 bytes until end of file
             md5.update(byte_block)  # update md5 object
@@ -22,5 +23,4 @@ if len(sys.argv) != 2:
     sys.exit(1)
 
 file_path = sys.argv[1]
-checksum = generate_checksum(file_path)
-print(f"MD5 checksum for {file_path}: {checksum}")
+print(f"MD5 checksum for {file_path}: {generate_checksum(file_path)}")
